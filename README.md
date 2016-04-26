@@ -9,6 +9,12 @@ Node module providing a set of functions for:
 * Creating a CSS file from the emoji images
 * Base64 Inlining the images in that CSS file 
 
+## Installation
+
+```
+npm i emoji-tools --save
+```
+
 ## Usage
 
 See [example.js](example.js).
