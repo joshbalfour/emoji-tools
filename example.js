@@ -10,27 +10,39 @@ const inFontFile = path.resolve('.','in','Fonts','Apple Color Emoji.ttf');
 const emojiTools = require('./index.js');
 
 emojiTools.extractCharacters(inPlistFile, function(err, emojiCategories){
-	if (!err){
-		emojiTools.extractImages(emojiCategories, inFontFile, outImagesDir, function(errs, emojis){
-			if (!errs){
-				emojiTools.makeCSS(emojis, outInlineCssFile, outImagesDir, false, function(err){
-					if (!errs){
-						emojiTools.makeCSS(emojis, outInlineCssFile, outImagesDir, true, function(errs){
-							if (!errs){
-								console.log('Success!');
-							} else {
-								console.error('Error making inline CSS file:', errs);
-							}
-						});
-					} else {
-						console.error('Error making CSS file:', err);
-					}
-				});
-			} else {
-				console.error('Error extracting images from font:', errs);
-			}
-		});
-	} else {
+
+	if (err){
 		console.error('Error extracting emojis characters from plist:', err);
+		return;
 	}
+
+	emojiTools.extractImages(emojiCategories, inFontFile, outImagesDir, function(errs, emojis){
+		
+		if (err){
+			console.error('Error extracting images from font:', errs);
+			return;
+		}
+
+		emojiTools.makeCSS(emojis, outInlineCssFile, outImagesDir, false, function(err){
+			
+			if (err){
+				console.error('Error making CSS file:', err);
+				return;
+			}
+
+			emojiTools.makeCSS(emojis, outInlineCssFile, outImagesDir, true, function(errs){
+				
+				if (errs){
+					console.error('Error making inline CSS file:', errs);
+					return;
+				}
+				
+				console.log('Success!');
+				
+			});
+
+		});
+
+	});
+
 });
