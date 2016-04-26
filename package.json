@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Extract emoji characters from Apple's Plist, convert them to PNG files, and base64 encode them into CSS",
   "main": "emojiTools.js",
+  "repository" : "https://github.com/joshbalfour/emoji-tools",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
